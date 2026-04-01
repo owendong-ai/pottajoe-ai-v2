@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PottaJoe 手沖咖啡 AI 推薦</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #1a0f0a;
+            color: #f5e6d3;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            border-bottom: 1px solid #3d2b1f;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            color: #d4a96a;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #a07850;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        .input-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .input-section h2 {
+            font-size: 1.3rem;
+            color: #d4a96a;
+            margin-bottom: 8px;
+        }
+
+        .input-section p {
+            color: #a07850;
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: #2a1a10;
+            border: 1px solid #4a3020;
+            border-radius: 12px;
+            color: #f5e6d3;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: none;
+            height: 100px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus { border-color: #d4a96a; }
+
+        textarea::placeholder { color: #6a4a30; }
+
+        button {
+            margin-top: 16px;
+            padding: 14px 40px;
+            background: #d4a96a;
+            color: #1a0f0a;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+        }
+
+        button:hover { background: #e8c08a; }
+
+        .prefs-tag {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #a07850;
+        }
+
+        .prefs-tag span {
+            display: inline-block;
+            background: #2a1a10;
+            border: 1px solid #4a3020;
+            border-radius: 20px;
+            padding: 4px 12px;
+            margin: 3px;
+        }
+
+        .results-section h2 {
+            font-size: 1.3rem;
+            color: #d4a96a;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .coffee-cards {
+            display: grid;
+            gap: 20px;
+        }
+
+        .coffee-card {
+            background: #2a1a10;
+            border: 1px solid #4a3020;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .coffee-card:hover { border-color: #d4a96a; }
+
+        .rank {
+            font-size: 2rem;
+            color: #4a3020;
+            font-weight: bold;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .coffee-card:first-child .rank { color: #d4a96a; }
+
+        .coffee-info { flex: 1; }
+
+        .coffee-info h3 {
+            font-size: 1.2rem;
+            color: #f5e6d3;
+            margin-bottom: 6px;
+        }
+
+        .coffee-info p {
+            color: #a07850;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .tag {
+            font-size: 0.78rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1px solid #4a3020;
+            color: #c09060;
+        }
+
+        .score {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d4a96a;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .score span {
+            font-size: 0.8rem;
+            color: #a07850;
+        }
+
+        .error {
+            text-align: center;
+            color: #c07050;
+            padding: 20px;
+            background: #2a1a10;
+            border-radius: 12px;
+            border: 1px solid #4a3020;
+        }
+
+        .bars { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: #a07850;
+        }
+
+        .bar-label { min-width: 28px; }
+
+        .bar-bg {
+            flex: 1;
+            height: 4px;
+            background: #3d2b1f;
+            border-radius: 2px;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: #d4a96a;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>☕ PottaJoe</h1>
+        <p>手沖咖啡 AI 推薦系統</p>
+    </header>
+
+    <div class="container">
+        <div class="input-section">
+            <h2>告訴我你今天想喝什麼</h2>
+            <p>用自然語言描述你的心情或口感偏好</p>
+            <form method="POST" action="/recommend">
+                <textarea
+                    name="user_input"
+                    placeholder="例如：我想要不酸、帶點巧克力味，喝起來要有重量感..."
+                >{{ user_input or '' }}</textarea>
+                <br>
+                <button type="submit">幫我推薦 →</button>
+            </form>
+
+            {% if prefs %}
+            <div class="prefs-tag">
+                AI 解析：
+                <span>酸度 {{ prefs.acidity }}/5</span>
+                <span>苦度 {{ prefs.bitterness }}/5</span>
+                <span>甜度 {{ prefs.sweetness }}/5</span>
+                <span>醇厚 {{ prefs.body }}/5</span>
+                <span>{{ prefs.flavor }}</span>
+                <span>{{ prefs.roast }}</span>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if results %}
+        <div class="results-section">
+            <h2>為你推薦的咖啡</h2>
+            <div class="coffee-cards">
+                {% for coffee in results %}
+                <div class="coffee-card">
+                    <div class="rank">#{{ loop.index }}</div>
+                    <div class="coffee-info">
+                        <h3>{{ coffee.name }}</h3>
+                        <p>{{ coffee.description }}</p>
+                        <div class="tags">
+                            <span class="tag">{{ coffee.flavor }}</span>
+                            <span class="tag">{{ coffee.roast }}</span>
+                        </div>
+                        <div class="bars">
+                            <div class="bar-row">
+                                <span class="bar-label">酸</span>
+                                <div class="bar-bg"><div class="bar-fill" style="width: {{ coffee.acidity * 20 }}%"></div></div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">苦</span>
+                                <div class="bar-bg"><div class="bar-fill" style="width: {{ coffee.bitterness * 20 }}%"></div></div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">甜</span>
+                                <div class="bar-bg"><div class="bar-fill" style="width: {{ coffee.sweetness * 20 }}%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="score">{{ coffee.score }}<span>%</span></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
