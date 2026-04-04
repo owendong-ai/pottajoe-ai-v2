@@ -9,7 +9,7 @@ coffees = [
         "sweetness": 4,
         "body": 2,
         "description": "帶有柑橘與莓果酸甜感，清爽明亮",
-        "image": "fruity_fresh.png"
+        "image": "1.png"
     },
     {
         "id": 2,
@@ -21,7 +21,7 @@ coffees = [
         "sweetness": 3,
         "body": 4,
         "description": "榛果與杏仁香氣，口感圓潤飽滿",
-        "image": "nutty_rich.png"
+        "image": "2.png"
     },
     {
         "id": 3,
@@ -33,7 +33,7 @@ coffees = [
         "sweetness": 2,
         "body": 5,
         "description": "黑巧克力與焦糖苦甜，厚重有力",
-        "image": "choco_dark.png"
+        "image": "3.png"
     },
     {
         "id": 4,
@@ -45,7 +45,7 @@ coffees = [
         "sweetness": 5,
         "body": 2,
         "description": "茉莉與玫瑰花香，甜感細膩輕盈",
-        "image": "floral_elegant.png"
+        "image": "4.png"
     },
     {
         "id": 5,
@@ -57,7 +57,7 @@ coffees = [
         "sweetness": 4,
         "body": 3,
         "description": "焦糖與奶油香氣，酸苦甜完美平衡",
-        "image": "caramel_balance.png"
+        "image": "5.png"
     },
     {
         "id": 6,
@@ -69,7 +69,7 @@ coffees = [
         "sweetness": 1,
         "body": 5,
         "description": "木質煙燻氣息，強勁奔放個性鮮明",
-        "image": "smoky_wild.png"
+        "image": "6.png"
     },
     {
         "id": 7,
@@ -81,7 +81,7 @@ coffees = [
         "sweetness": 3,
         "body": 3,
         "description": "溫和不刺激，適合每天享用的日常款",
-        "image": "mild_daily.png"
+        "image": "7.png"
     },
     {
         "id": 8,
@@ -93,6 +93,6 @@ coffees = [
         "sweetness": 5,
         "body": 1,
         "description": "鳳梨芒果熱帶風情，像喝果汁一樣清爽",
-        "image": "tropical_juice.png"
+        "image": "8.png"
     }
 ]

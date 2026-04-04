@@ -255,6 +255,9 @@
             <h2>為你推薦的咖啡</h2>
             <div class="coffee-cards">
                 {% for coffee in results %}
+                <img src="/static/images/{{ coffee.image }}"
+                     alt="{{ coffee.name }}"
+                    style="width: 100%; border-radius: 10px; margin-bottom: 10px; object-fit: cover; height: 180px;">
                 <div class="coffee-card">
                     <div class="rank">#{{ loop.index }}</div>
                     <div class="coffee-info">
