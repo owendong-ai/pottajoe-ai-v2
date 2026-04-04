@@ -214,6 +214,34 @@
             background: #d4a96a;
             border-radius: 2px;
         }
+        .star-rating {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: #4a3020;
+            cursor: pointer;
+            padding: 2px;
+            transition: color 0.2s;
+        }
+
+        .star-btn:hover,
+        .star-btn:hover ~ .star-btn {
+            color: #d4a96a;
+        }
+
+        .star-rating:hover .star-btn {
+            color: #d4a96a;
+        }
+
+        .star-rating .star-btn:hover ~ .star-btn {
+            color: #4a3020;
+        }
     </style>
 </head>
 <body>
@@ -286,6 +314,17 @@
                     <div class="score">{{ coffee.score }}<span>%</span></div>
                 </div>
                 {% endfor %}
+                <form method="POST" action="/rate" style="margin-top: 12px;">
+                    <input type="hidden" name="coffee_name" value="{{ coffee.name }}">
+                    <input type="hidden" name="user_input" value="{{ user_input or '' }}">
+                    <div class="star-rating">
+                        {% for i in [1,2,3,4,5] %}
+                        <button type="submit" name="stars" value="{{ i }}" class="star-btn">
+                            ★
+                        </button>
+                        {% endfor %}
+                    </div>
+                </form> 
             </div>
         </div>
         {% endif %}
