@@ -312,8 +312,7 @@
                         </div>
                     </div>
                     <div class="score">{{ coffee.score }}<span>%</span></div>
-                </div>
-                {% endfor %}
+                </div>              
                 <form method="POST" action="/rate" style="margin-top: 12px;">
                     <input type="hidden" name="coffee_name" value="{{ coffee.name }}">
                     <input type="hidden" name="user_input" value="{{ user_input or '' }}">
@@ -325,6 +324,7 @@
                         {% endfor %}
                     </div>
                 </form> 
+                {% endfor %}
             </div>
         </div>
         {% endif %}
