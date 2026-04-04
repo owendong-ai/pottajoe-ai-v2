@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PottaJoe 手沖咖啡 AI 推薦</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Georgia', serif;
@@ -71,9 +76,13 @@
             transition: border-color 0.3s;
         }
 
-        textarea:focus { border-color: #d4a96a; }
+        textarea:focus {
+            border-color: #d4a96a;
+        }
 
-        textarea::placeholder { color: #6a4a30; }
+        textarea::placeholder {
+            color: #6a4a30;
+        }
 
         button {
             margin-top: 16px;
@@ -90,7 +99,9 @@
             transition: background 0.3s;
         }
 
-        button:hover { background: #e8c08a; }
+        button:hover {
+            background: #e8c08a;
+        }
 
         .prefs-tag {
             margin-top: 20px;
@@ -132,7 +143,9 @@
             transition: border-color 0.3s;
         }
 
-        .coffee-card:hover { border-color: #d4a96a; }
+        .coffee-card:hover {
+            border-color: #d4a96a;
+        }
 
         .rank {
             font-size: 2rem;
@@ -142,9 +155,13 @@
             text-align: center;
         }
 
-        .coffee-card:first-child .rank { color: #d4a96a; }
+        .coffee-card:first-child .rank {
+            color: #d4a96a;
+        }
 
-        .coffee-info { flex: 1; }
+        .coffee-info {
+            flex: 1;
+        }
 
         .coffee-info h3 {
             font-size: 1.2rem;
@@ -158,7 +175,11 @@
             margin-bottom: 10px;
         }
 
-        .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
 
         .tag {
             font-size: 0.78rem;
@@ -190,7 +211,12 @@
             border: 1px solid #4a3020;
         }
 
-        .bars { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+        .bars {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 8px;
+        }
 
         .bar-row {
             display: flex;
@@ -200,7 +226,9 @@
             color: #a07850;
         }
 
-        .bar-label { min-width: 28px; }
+        .bar-label {
+            min-width: 28px;
+        }
 
         .bar-bg {
             flex: 1;
@@ -214,6 +242,7 @@
             background: #d4a96a;
             border-radius: 2px;
         }
+
         .star-rating {
             display: flex;
             gap: 4px;
@@ -231,7 +260,7 @@
         }
 
         .star-btn:hover,
-        .star-btn:hover ~ .star-btn {
+        .star-btn:hover~.star-btn {
             color: #d4a96a;
         }
 
@@ -239,11 +268,12 @@
             color: #d4a96a;
         }
 
-        .star-rating .star-btn:hover ~ .star-btn {
+        .star-rating .star-btn:hover~.star-btn {
             color: #4a3020;
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>☕ PottaJoe</h1>
@@ -255,10 +285,7 @@
             <h2>告訴我你今天想喝什麼</h2>
             <p>用自然語言描述你的心情或口感偏好</p>
             <form method="POST" action="/recommend">
-                <textarea
-                    name="user_input"
-                    placeholder="例如：我想要不酸、帶點巧克力味，喝起來要有重量感..."
-                >{{ user_input or '' }}</textarea>
+                <textarea name="user_input" placeholder="例如：我想要不酸、帶點巧克力味，喝起來要有重量感...">{{ user_input or '' }}</textarea>
                 <br>
                 <button type="submit">幫我推薦 →</button>
             </form>
@@ -284,10 +311,10 @@
         <div class="results-section">
             <h2>為你推薦的咖啡</h2>
             <div class="coffee-cards">
-                {% for coffee in results %}               
+                {% for coffee in results %}
                 <div class="coffee-card">
-                     <img src="/static/images/{{ coffee.image }}" alt="{{ coffee.name }}"
-                          style="width: 100%; border-radius: 10px; margin-bottom: 10px; object-fit: cover; height: 180px;">
+                    <img src="/static/images/{{ coffee.image }}" alt="{{ coffee.name }}"
+                        style="width: 100%; border-radius: 10px; margin-bottom: 10px; object-fit: cover; height: 180px;">
                     <div class="rank">#{{ loop.index }}</div>
                     <div class="coffee-info">
                         <h3>{{ coffee.name }}</h3>
@@ -299,35 +326,42 @@
                         <div class="bars">
                             <div class="bar-row">
                                 <span class="bar-label">酸</span>
-                                <div class="bar-bg"><div class="bar-fill" style="width: {{ coffee.acidity * 20 }}%"></div></div>
+                                <div class="bar-bg">
+                                    <div class="bar-fill" style="width: {{ coffee.acidity * 20 }}%"></div>
+                                </div>
                             </div>
                             <div class="bar-row">
                                 <span class="bar-label">苦</span>
-                                <div class="bar-bg"><div class="bar-fill" style="width: {{ coffee.bitterness * 20 }}%"></div></div>
+                                <div class="bar-bg">
+                                    <div class="bar-fill" style="width: {{ coffee.bitterness * 20 }}%"></div>
+                                </div>
                             </div>
                             <div class="bar-row">
                                 <span class="bar-label">甜</span>
-                                <div class="bar-bg"><div class="bar-fill" style="width: {{ coffee.sweetness * 20 }}%"></div></div>
+                                <div class="bar-bg">
+                                    <div class="bar-fill" style="width: {{ coffee.sweetness * 20 }}%"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="score">{{ coffee.score }}<span>%</span></div>
-                </div>              
-                <form method="POST" action="/rate" style="margin-top: 12px;">
-                    <input type="hidden" name="coffee_name" value="{{ coffee.name }}">
-                    <input type="hidden" name="user_input" value="{{ user_input or '' }}">
-                    <div class="star-rating">
-                        {% for i in [1,2,3,4,5] %}
-                        <button type="submit" name="stars" value="{{ i }}" class="star-btn">
-                            ★
-                        </button>
-                        {% endfor %}
-                    </div>
-                </form> 
-                {% endfor %}
+                    <form method="POST" action="/rate" style="margin-top: 12px;">
+                        <input type="hidden" name="coffee_name" value="{{ coffee.name }}">
+                        <input type="hidden" name="user_input" value="{{ user_input or '' }}">
+                        <div class="star-rating">
+                            {% for i in [1,2,3,4,5] %}
+                            <button type="submit" name="stars" value="{{ i }}" class="star-btn">
+                                ★
+                            </button>
+                            {% endfor %}
+                        </div>
+                    </form>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         {% endif %}
     </div>
 </body>
+
 </html>
